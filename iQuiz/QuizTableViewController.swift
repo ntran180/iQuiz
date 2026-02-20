@@ -12,17 +12,20 @@ class QuizTableViewController: UITableViewController {
           QuizTopic(
               title: "Mathematics",
               description: "Test your math skills with fun problems.",
-              iconName: "plus.slash.minus"
+              iconName: "plus.slash.minus",
+              questions: [Question(text: "2 + 2 = ?", answers: ["3","4","5","6"], correctAnswerIndex: 1)]
           ),
           QuizTopic(
               title: "Marvel Super Heroes",
               description: "How well do you know Marvel characters?",
-              iconName: "bolt.fill"
+              iconName: "bolt.fill",
+              questions: [Question(text: "Who is Spiderman?", answers: ["Peter Parker","Tony Stark","Thor Odinson","Bruce Banner"], correctAnswerIndex: 0)]
           ),
           QuizTopic(
               title: "Science",
               description: "Explore physics, chemistry, and biology.",
-              iconName: "atom"
+              iconName: "atom",
+              questions: [Question(text: "What is the common name for the compound H20?", answers: ["Oxygen","Water","Ozone","Salt"], correctAnswerIndex: 1)]
           )
       ]
     override func viewDidLoad() {
@@ -72,4 +75,20 @@ class QuizTableViewController: UITableViewController {
 
             return cell
         }
+    
+    override func tableView(_ tableView: UITableView,
+                            didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showQuestion", sender: indexPath)
     }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showQuestion",
+           let indexPath = sender as? IndexPath,
+           let destination = segue.destination as? QuestionViewController {
+
+            destination.topic = quizzes[indexPath.row]
+            destination.currentQuestionIndex = 0
+            destination.score = 0
+        }
+    }
+}
