@@ -6,16 +6,30 @@
 //
 
 import UIKit
+import Foundation
 
-struct Question {
+struct Question: Codable {
     let text: String
     let answers: [String]
-    let correctAnswerIndex: Int
+    let answer: String
 }
 
-struct QuizTopic {
+struct QuizTopic: Codable {
     let title: String
-    let description: String
-    let iconName: String
-    let questions: [Question] 
+    let desc: String
+    let questions: [Question]
+}
+extension QuizTopic {
+    var iconName: String {
+        switch title {
+        case "Mathematics":
+            return "plus.slash.minus"
+        case "Marvel Super Heroes":
+            return "bolt.fill"
+        case "Science":
+            return "atom"
+        default:
+            return "questionmark.circle"
+        }
+    }
 }

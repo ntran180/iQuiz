@@ -37,10 +37,13 @@ class QuestionViewController: UIViewController {
     }
 
     @IBAction func answerTapped(_ sender: UIButton) {
-        selectedAnswerIndex = sender.tag
-    }
-
-    @IBAction func submitTapped(_ sender: UIButton) {
+        switch sender {
+        case answerButton1: selectedAnswerIndex = 0
+        case answerButton2: selectedAnswerIndex = 1
+        case answerButton3: selectedAnswerIndex = 2
+        case answerButton4: selectedAnswerIndex = 3
+        default: break
+        }
         performSegue(withIdentifier: "showAnswer", sender: self)
     }
 

@@ -17,7 +17,7 @@ class AnswersViewController: UIViewController {
     var topic: QuizTopic!
     var currentQuestionIndex: Int!
     var score: Int!
-    var selectedAnswerIndex: Int!
+    var selectedAnswerIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,9 +28,10 @@ class AnswersViewController: UIViewController {
         let question = topic.questions[currentQuestionIndex]
         
         questionLabel.text = question.text
-        correctAnswerLabel.text = "Correct Answer: \(question.answers[question.correctAnswerIndex])"
+        let correctIndex = (Int(question.answer) ?? 1) - 1
+        correctAnswerLabel.text = "Correct Answer: \(question.answers[correctIndex])"
 
-        if selectedAnswerIndex == question.correctAnswerIndex {
+        if let selected = selectedAnswerIndex, selected == correctIndex {
             resultLabel.text = "Correct!"
             score += 1
         } else {
@@ -47,12 +48,17 @@ class AnswersViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showAnswer",
-           let destination = segue.destination as? AnswersViewController {
-            destination.topic = topic
-            destination.currentQuestionIndex = currentQuestionIndex
-            destination.score = score
-            destination.selectedAnswerIndex = selectedAnswerIndex
+        if segue.identifier == "nextQuestion" {
+            if let destination = segue.destination as? QuestionViewController {
+                destination.topic = topic
+                destination.currentQuestionIndex = currentQuestionIndex + 1
+                destination.score = score
+            }
+        } else if segue.identifier == "showFinished" {
+            if let destination = segue.destination as? FinishedViewController {
+                destination.score = score
+                destination.totalQuestions = topic.questions.count
+            }
         }
     }
     

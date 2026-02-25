@@ -6,33 +6,40 @@
 //
 
 import UIKit
+import Foundation
 
 class QuizTableViewController: UITableViewController {
-    let quizzes: [QuizTopic] = [
-          QuizTopic(
-              title: "Mathematics",
-              description: "Test your math skills with fun problems.",
-              iconName: "plus.slash.minus",
-              questions: [Question(text: "2 + 2 = ?", answers: ["3","4","5","6"], correctAnswerIndex: 1)]
-          ),
-          QuizTopic(
-              title: "Marvel Super Heroes",
-              description: "How well do you know Marvel characters?",
-              iconName: "bolt.fill",
-              questions: [Question(text: "Who is Spiderman?", answers: ["Peter Parker","Tony Stark","Thor Odinson","Bruce Banner"], correctAnswerIndex: 0)]
-          ),
-          QuizTopic(
-              title: "Science",
-              description: "Explore physics, chemistry, and biology.",
-              iconName: "atom",
-              questions: [Question(text: "What is the common name for the compound H20?", answers: ["Oxygen","Water","Ozone","Salt"], correctAnswerIndex: 1)]
-          )
-      ]
+    var quizzes: [QuizTopic] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "iQuiz"
         setupToolbar()
+        loadQuizzes()
     }
+    
+    private func loadQuizzes() {
+        QuizService.shared.fetchQuizzes { result in
+            DispatchQueue.main.async {
+                switch result {
+
+                case .success(let topics):
+                    self.quizzes = topics
+                    self.tableView.reloadData()
+
+                case .failure:
+                    let alert = UIAlertController(
+                        title: "Network Error",
+                        message: "Unable to load quizzes. Please check your internet connection.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self.present(alert, animated: true)
+                }
+            }
+        }
+    }
+    
     private func setupToolbar() {
         let settingsButton = UIBarButtonItem(
             title: "Settings",
@@ -44,15 +51,12 @@ class QuizTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = settingsButton
     }
 
+    
+    
     @objc private func showSettings() {
-        let alert = UIAlertController(
-            title: "Settings",
-            message: "Settings go here",
-            preferredStyle: .alert
-        )
-
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
+        navigationController?.pushViewController(settingsVC, animated: true)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -69,10 +73,10 @@ class QuizTableViewController: UITableViewController {
             let quiz = quizzes[indexPath.row]
 
             cell.textLabel?.text = quiz.title
-            cell.detailTextLabel?.text = quiz.description
-
+            cell.detailTextLabel?.text = quiz.desc
             cell.imageView?.image = UIImage(systemName: quiz.iconName)
 
+            cell.accessoryType = .disclosureIndicator
             return cell
         }
     
