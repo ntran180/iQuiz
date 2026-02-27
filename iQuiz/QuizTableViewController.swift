@@ -51,13 +51,6 @@ class QuizTableViewController: UITableViewController {
         navigationItem.rightBarButtonItem = settingsButton
     }
 
-    
-    
-    @objc private func showSettings() {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let settingsVC = storyboard.instantiateViewController(withIdentifier: "SettingsViewController")
-        navigationController?.pushViewController(settingsVC, animated: true)
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return quizzes.count
@@ -93,6 +86,12 @@ class QuizTableViewController: UITableViewController {
             destination.topic = quizzes[indexPath.row]
             destination.currentQuestionIndex = 0
             destination.score = 0
+        }
+    }
+    @objc private func showSettings() {
+        if let settingsURL = URL(string: UIApplication.openSettingsURLString),
+           UIApplication.shared.canOpenURL(settingsURL) {
+            UIApplication.shared.open(settingsURL)
         }
     }
 }

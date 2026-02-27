@@ -17,7 +17,7 @@ class QuizService {
 
     func fetchQuizzes(completion: @escaping (Result<[Quiz], Error>) -> Void) {
 
-        let urlString = UserDefaults.standard.string(forKey: "quizURL") ?? "http://tednewardsandbox.site44.com/questions.json"
+        let urlString = UserDefaults.standard.string(forKey: "quizURL") ?? defaultURL
 
         guard let url = URL(string: urlString) else {
             completion(.failure(NSError(domain: "Invalid URL", code: 0)))
@@ -25,7 +25,11 @@ class QuizService {
         }
 
         if !isNetworkAvailable() {
-            completion(.failure(NSError(domain: "No Internet Connection", code: 0)))
+            if let localQuizzes = loadQuizzesLocally(){
+                completion(.success(localQuizzes))
+            } else {
+                completion(.failure(NSError(domain: "No Internet Connection", code: 0)))
+            }
             return
         }
 
@@ -42,14 +46,38 @@ class QuizService {
             }
 
             do {
-                let topics = try JSONDecoder().decode([Quiz].self, from: data)
-                completion(.success(topics))
+                let quizzes = try JSONDecoder().decode([Quiz].self, from: data)
+                
+                self.saveQuizzesLocally(data: data)
+                completion(.success(quizzes))
+                
             } catch {
                 completion(.failure(error))
             }
 
         }.resume()
     }
+    private func saveQuizzesLocally(data: Data) {
+        let url = getLocalFileURL()
+        try? data.write(to: url)
+    }
+
+    private func loadQuizzesLocally() -> [Quiz]? {
+        let url = getLocalFileURL()
+
+        guard let data = try? Data(contentsOf: url) else {
+            return nil
+        }
+
+        return try? JSONDecoder().decode([Quiz].self, from: data)
+    }
+
+    private func getLocalFileURL() -> URL {
+        let documents = FileManager.default.urls(for: .documentDirectory,
+                                                 in: .userDomainMask)[0]
+        return documents.appendingPathComponent("quizzes.json")
+    }
+
 
     private func isNetworkAvailable() -> Bool {
         let monitor = NWPathMonitor()
