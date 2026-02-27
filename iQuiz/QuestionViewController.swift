@@ -14,8 +14,9 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var answerButton2: UIButton!
     @IBOutlet weak var answerButton3: UIButton!
     @IBOutlet weak var answerButton4: UIButton!
+    @IBOutlet weak var submitButton: UIButton!
 
-    var topic: QuizTopic!
+    var topic: Quiz?
     var currentQuestionIndex: Int = 0
     var score: Int = 0
     var selectedAnswerIndex: Int?
@@ -26,6 +27,12 @@ class QuestionViewController: UIViewController {
     }
 
     func displayQuestion() {
+        guard let topic = topic,
+              currentQuestionIndex < topic.questions.count else { return }
+
+        selectedAnswerIndex = nil
+        submitButton.isEnabled = false
+
         let question = topic.questions[currentQuestionIndex]
         questionLabel.text = question.text
 
@@ -44,7 +51,13 @@ class QuestionViewController: UIViewController {
         case answerButton4: selectedAnswerIndex = 3
         default: break
         }
-        performSegue(withIdentifier: "showAnswer", sender: self)
+
+        submitButton.isEnabled = true
+    }
+
+    @IBAction func submitTapped(_ sender: UIButton) {
+        guard selectedAnswerIndex != nil else { return }
+        performSegue(withIdentifier: "showAnswer", sender: nil)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

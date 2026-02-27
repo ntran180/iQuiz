@@ -9,7 +9,7 @@ import UIKit
 import Foundation
 
 class QuizTableViewController: UITableViewController {
-    var quizzes: [QuizTopic] = []
+    var quizzes: [Quiz] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class QuizTableViewController: UITableViewController {
 
             cell.textLabel?.text = quiz.title
             cell.detailTextLabel?.text = quiz.desc
-            cell.imageView?.image = UIImage(systemName: quiz.iconName)
+            cell.imageView?.image = UIImage(systemName: quiz.icon ?? "questionmark.circle")
 
             cell.accessoryType = .disclosureIndicator
             return cell

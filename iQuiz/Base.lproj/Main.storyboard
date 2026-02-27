@@ -31,7 +31,7 @@
             <objects>
                 <tableViewController id="4eE-DZ-McE" customClass="QuizTableViewController" customModule="iQuiz" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="lev-L4-d1R">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -129,11 +129,11 @@
             <objects>
                 <viewController id="1Qd-lJ-sns" userLabel="Question View Controller" customClass="QuestionViewController" customModule="iQuiz" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZfJ-Vz-Rbv">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dtc-iJ-ste">
-                                <rect key="frame" x="16" y="486" width="95.333333333333258" height="34.333333333333314"/>
+                                <rect key="frame" x="16" y="486" width="116" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Answer 4"/>
@@ -142,7 +142,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgy-LA-TAZ">
-                                <rect key="frame" x="16" y="408" width="95.333333333333258" height="34.333333333333314"/>
+                                <rect key="frame" x="16" y="408" width="116" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Answer 3"/>
@@ -151,7 +151,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvW-qf-REN">
-                                <rect key="frame" x="16" y="333" width="94.666666666666742" height="34.333333333333314"/>
+                                <rect key="frame" x="16" y="333" width="116" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Answer 2"/>
@@ -166,11 +166,10 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Submit"/>
                                 <connections>
                                     <action selector="submitTapped:" destination="1Qd-lJ-sns" eventType="touchUpInside" id="akq-sW-khA"/>
-                                    <segue destination="1QZ-z5-jUy" kind="show" id="ERI-QO-aYU"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T1B-mq-xvk">
-                                <rect key="frame" x="16" y="262" width="95" height="34"/>
+                                <rect key="frame" x="16" y="262" width="116" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="Answer 1"/>
@@ -196,18 +195,20 @@
                         <outlet property="answerButton3" destination="pgy-LA-TAZ" id="J3x-tN-FY7"/>
                         <outlet property="answerButton4" destination="dtc-iJ-ste" id="amM-wf-VDH"/>
                         <outlet property="questionLabel" destination="Ttp-Iv-eSB" id="Yuj-GW-pve"/>
+                        <outlet property="submitButton" destination="eHA-0q-QZs" id="XQF-i7-ZEz"/>
+                        <segue destination="1QZ-z5-jUy" kind="show" identifier="showAnswer" id="49n-2F-zjc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cre-Cw-xF4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1782" y="131"/>
+            <point key="canvasLocation" x="1780.916030534351" y="130.98591549295776"/>
         </scene>
         <!--Answers View Controller-->
         <scene sceneID="OhR-Md-mCs">
             <objects>
                 <viewController id="1QZ-z5-jUy" customClass="AnswersViewController" customModule="iQuiz" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Zlx-sj-eLK">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="QuestionLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9b-vx-nBL">
@@ -238,7 +239,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Next"/>
                                 <connections>
                                     <action selector="nextTapped:" destination="1QZ-z5-jUy" eventType="touchUpInside" id="BSx-9K-UNC"/>
-                                    <segue destination="9bI-2k-QRk" kind="show" id="nMz-WU-RMq"/>
+                                    <segue destination="9bI-2k-QRk" kind="show" identifier="showFinished" id="nMz-WU-RMq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -262,7 +263,7 @@
             <objects>
                 <viewController id="9bI-2k-QRk" customClass="FinishedViewController" customModule="iQuiz" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TFC-az-nGW">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="performanceLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7lQ-37-bNh">
@@ -286,6 +287,7 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Next"/>
                                 <connections>
                                     <action selector="nextTapped:" destination="9bI-2k-QRk" eventType="touchUpInside" id="Sqb-Fa-UC0"/>
+                                    <segue destination="4eE-DZ-McE" kind="show" identifier="nextQuestion" id="AtT-cK-hI8"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -303,6 +305,9 @@
             <point key="canvasLocation" x="3584" y="117"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="AtT-cK-hI8"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

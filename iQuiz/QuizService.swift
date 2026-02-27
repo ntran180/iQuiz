@@ -15,7 +15,7 @@ class QuizService {
 
     private let defaultURL = "http://tednewardsandbox.site44.com/questions.json"
 
-    func fetchQuizzes(completion: @escaping (Result<[QuizTopic], Error>) -> Void) {
+    func fetchQuizzes(completion: @escaping (Result<[Quiz], Error>) -> Void) {
 
         let urlString = UserDefaults.standard.string(forKey: "quizURL") ?? "http://tednewardsandbox.site44.com/questions.json"
 
@@ -42,7 +42,7 @@ class QuizService {
             }
 
             do {
-                let topics = try JSONDecoder().decode([QuizTopic].self, from: data)
+                let topics = try JSONDecoder().decode([Quiz].self, from: data)
                 completion(.success(topics))
             } catch {
                 completion(.failure(error))
